@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/fibonacci-number/
+class Solution {
+public:
+    int fib(int N)
+    {
+        if (N < 2)
+            return N;
+        int a = 1, b = 0, c = 0;
+        for(int i = 2; i < N+1; i++)
+        {
+            c = a + b;
+            b = a;
+            a = c;
+        }
+        return c;
+    }
+};
