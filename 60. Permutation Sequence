@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/permutation-sequence/
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int total = 1;
+        for(int i = 1; i <= n; i++)
+            total *= i;
+        
+        int number = k - 1;
+        string perm = "", charPool = "123456789";
+        
+        for(int j = n; j > 0; j--) {
+            total /= j;
+            perm += charPool[number/total];
+            charPool.erase(number/total,1);
+            number %= total;
+        }
+        return perm;
+    }
+};
