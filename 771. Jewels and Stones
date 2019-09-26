@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/jewels-and-stones/
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        unordered_map<char, int> slovar;
+        int sum = 0;
+        for(int i = 0; i < S.size(); i++) {
+            slovar[S[i]]++;
+        }
+        for (auto x: J) {
+            if (slovar[x]) {
+                sum+=slovar[x];
+            }
+        }
+        return sum;
+    }
+};
