@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/multiply-strings/submissions/
+class Solution {
+public:
+    string multiply(string num1, string num2)
+    {
+        int l1 = num1.length(), l2=num2.length(), el = 0;
+        
+        if (num1 == "0" || num2 == "0")
+            return "0";
+        
+        reverse(num1.begin(), num1.end());
+        reverse(num2.begin(), num2.end());
+        
+        string result (l1 + l2, 0);
+        
+        for (int i = 1; i <= l1 + l2; i++)
+        {
+            for (int j = 0; j < i && j < l1; j++)
+                if (i-j-1 < l2)
+                    el += (num1[j] - '0') * (num2[i-j-1] - '0');
+                 
+            result[i - 1] = (el % 10) + '0';
+            el /= 10;
+        }
+        
+        if (result[result.length() - 1] == '0')
+            result.pop_back();
+        
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
