@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums)
+    {
+        return Additional(nums,0,nums.size());
+    }
+private:
+    TreeNode* Additional(vector<int>& nums, int i, int j)
+    {
+        if (j <= i)
+           return NULL;
+       int middle = (i + j) / 2;
+       TreeNode* root = new TreeNode(nums[middle]); 
+       root->left = Additional(nums, i, middle);
+       root->right = Additional(nums, middle + 1,j);
+       return root;
+    }
+};
