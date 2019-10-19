@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/binary-tree-right-side-view/
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root)
+    {
+        vector<int> rs;
+        if (!root)
+            return rs;
+        deque<TreeNode*> deq;
+        deq.push_back(root);
+        while (!deq.empty())
+        {
+            int n = deq.size();
+            for(int i=1; i<=n; i++)
+            {
+                TreeNode* current = deq.front();
+                deq.pop_front();
+                if (current->left)
+                    deq.push_back(current->left);
+                if (current->right)
+                    deq.push_back(current->right);
+                if (i == n)
+                    rs.push_back(current->val);
+            }   
+        }
+        return rs;
+    }
+};
