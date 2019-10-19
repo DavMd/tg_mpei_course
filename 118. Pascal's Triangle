@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/pascals-triangle/
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows)
+    {
+        vector<vector<int>> rs;
+        if (numRows <= 0)
+            return rs;
+        
+        rs.push_back(vector<int>(1,1));
+        for (int i = 1; i < numRows; i++)
+        {
+            vector<int> new_row(1,1);
+            for (int j = 1; j < i; j++)
+                new_row.push_back(rs[i-1][j-1]+rs[i-1][j]);
+            new_row.push_back(1);
+            rs.push_back(new_row);
+            new_row.clear();
+        }
+        return rs;
+    }
+};
