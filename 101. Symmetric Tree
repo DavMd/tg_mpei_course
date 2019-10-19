@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/symmetric-tree/
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root)
+    {
+        if (!root) return true;
+        return isMirror(root->left, root->right);
+    }
+    
+    bool isMirror(TreeNode* lhs, TreeNode* rhs)
+    {
+        if (!lhs || !rhs) return lhs == rhs;
+        if (lhs->val != rhs->val) return false;
+        return isMirror(lhs->left,rhs->right)
+            && isMirror(lhs->right,rhs->left);
+    }
+};
