@@ -1,0 +1,14 @@
+//https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
+#include <limits>
+class Solution {
+public:
+    int maxAncestorDiff(TreeNode* root, int m = std::numeric_limits<int>::max(),
+                        int mx = std::numeric_limits<int>::min())
+    {
+      if (!root) return mx - m;
+      mx = max(mx, root->val);
+      m = min(m, root->val);
+      return max(maxAncestorDiff(root->left, m, mx),
+                 maxAncestorDiff(root->right, m, mx));
+    }
+};
