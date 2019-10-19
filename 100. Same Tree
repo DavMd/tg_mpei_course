@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/same-tree/
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q)
+    {
+        bool f,fl,flag,result; 
+        if (!p && !q)
+            return true; 
+        else
+        if (!p || !q)
+            return false; 
+        else
+        {
+            (p->val == q->val)? f=true: f=false; 
+            fl = isSameTree(p->left, q->left); 
+            flag = isSameTree(p->right, q->right); 
+            result = fl && f && flag; 
+                       
+            return result; 
+        }
+    }
+};
