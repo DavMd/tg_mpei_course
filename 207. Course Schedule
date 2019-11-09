@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/course-schedule/
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        int total = numCourses;
+        vector<int> vect1(numCourses, 0);
+        vector<vector<int>> vect2(numCourses);
+        
+        for (const auto& i : prerequisites) {
+            vect2[i[0]].push_back(i[1]);
+            vect1[i[1]]++;
+        }
+        
+        queue<int> que;
+        for (size_t i = 0; i < numCourses; i++)
+            if (vect1[i] == 0) {
+                que.push(i);
+                total--;
+            }
+        
+        while (!que.empty()) {
+            int temp = que.front();
+            que.pop();
+            for (const auto& i : vect2[temp]) {
+                vect1[i] --;
+                if(!vect1[i]) {
+                    que.push(i);
+                    total --;
+                }
+            }
+        }
+        
+        return !total;
+    }
+};
