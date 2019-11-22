@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/find-bottom-left-tree-value/
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root)
+    {
+        int ans = 0, h = -1;
+        funct(move(root), ans, move(h), 0);
+        return ans;
+    }
+private:
+    void funct(TreeNode*&& root, int &ans, int &&h, int&& dep){
+        if(dep > h)
+        {
+            ans = root->val;
+            h = dep;
+        }
+        if (root->left) funct(move(root->left), ans, move(h), dep + 1);
+        if (root->right) funct(move(root->right), ans, move(h), dep + 1);
+    }
+};
