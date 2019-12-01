@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/clone-graph/
+class Solution {
+private:
+    unordered_map<Node*,Node*> NG;
+    
+public:    
+    Node* cloneGraph(Node* node)
+    {
+        if (NG.find(node) != NG.end())
+            return NG[node];
+        Node* NewNode = new Node(node->val, {});
+        NG[node] = NewNode;
+        for (int i = 0; i < node->neighbors.size(); i++)
+            NewNode->neighbors.push_back(move(cloneGraph(node->neighbors[i])));
+        return NewNode;
+    }
+};
