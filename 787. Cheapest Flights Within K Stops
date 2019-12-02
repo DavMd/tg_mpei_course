@@ -1,0 +1,50 @@
+//https://leetcode.com/problems/cheapest-flights-within-k-stops/
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K)
+    {
+        unordered_map<int, vector<pair<int, int>>> Fl;
+        vector<int> dist(n, INT_MAX);
+        dist[src] = 0;
+        
+        queue<pair<int, int>> qu;
+
+        for(auto it : flights)
+            Fl[it[0]].push_back({move(it[1]), move(it[2])});
+
+        qu.push({src, 0});
+
+        int count = 0;
+        int res = INT_MAX;
+        while(!qu.empty())
+        {
+            if (count++ > K+1)
+                break;
+            int size = qu.size();
+            for(int i = 0; i < size; i++)
+            {
+                pair<int, int> temp = qu.front();
+                qu.pop();
+                int city = temp.first;
+                int cost = temp.second;
+
+                if (city == dst)
+                {
+                    res = min(res, cost);
+                    continue;
+                }
+
+                for (auto it : Fl[city])
+                {
+                    it.second += cost;
+                    if (dist[it.first] < it.second)
+                        continue;
+                    dist[it.first] = it.second;
+                    qu.push({move(it.first), move(it.second)});
+                }
+            }
+        }
+
+        return res == INT_MAX ? -1 : res;
+    }
+};
