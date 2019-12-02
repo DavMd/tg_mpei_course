@@ -1,0 +1,29 @@
+//https://leetcode.com/problems/top-k-frequent-elements/
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k)
+    {
+	    map<int, int> M;
+        
+	    for (const int& i : nums)
+		    M[i]++;
+
+	    vector<pair<int, int>> NewVect;
+	    for (auto x : M)
+		    NewVect.push_back({ move(x.first), move(x.second) });
+
+	    sort(NewVect.begin(), NewVect.end(),
+            [](pair<int, int> x, pair<int, int> y)->bool
+            { return (x.second > y.second); });
+        
+        vector<int> Res;
+
+	    for (auto x : NewVect)
+		    if (Res.size() < k)
+			    Res.push_back(x.first);
+		    else
+			    break;
+
+	    return Res;
+    }
+};
