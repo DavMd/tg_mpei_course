@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/delete-nodes-and-return-forest/
+class Solution {
+public:
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete)
+    {
+        unordered_set<int> Set;
+        vector<TreeNode*> result;
+        for (int node : to_delete)
+            Set.insert(node);
+        Funct(root, move(Set), result);
+        if (root)
+            result.push_back(root);
+        return result;
+    }
+
+private:
+    
+    void Funct(TreeNode*& root, unordered_set<int>&& Set, vector<TreeNode*>& result)
+    {
+        if (!root)
+            return;
+        Funct(root->left, move(Set), result);
+        Funct(root->right, move(Set), result);
+        if (Set.find(root->val) != Set.end())
+        {
+            if (root->left)
+                result.push_back(move(root->left));
+            if (root->right)
+                result.push_back(move(root->right));
+            root = NULL;
+        }
+    }
+};
